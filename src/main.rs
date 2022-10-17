@@ -10,6 +10,7 @@ pub mod d08;
 pub mod d09;
 pub mod d10;
 pub mod d11;
+pub mod d12;
 
 fn main() {
     println!("Hello Advent Of Code 2015 !");
@@ -23,5 +24,6 @@ fn main() {
     // d08::main();
     // d09::main();
     // d10::main();
-    d11::main();
+    // d11::main();
+    d12::main();
 }

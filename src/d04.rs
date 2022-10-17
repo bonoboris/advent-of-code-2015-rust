@@ -45,6 +45,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[ignore = "slow"]
     fn test_simple_mine() {
         assert_eq!(simple_mine("abcdef", &[0, 0, 10]), 609043);
         assert_eq!(simple_mine("pqrstuv", &[0, 0, 10]), 1048970);
