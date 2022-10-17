@@ -1,5 +1,6 @@
 use crate::common::{print_parts, read_lines};
 use ex::io;
+use std::io::BufRead;
 use std::{char, collections::HashMap};
 
 fn is_vowel(c: char) -> bool {
@@ -87,11 +88,11 @@ fn is_nice2(s: &str) -> bool {
 }
 
 pub fn part1() -> io::Result<usize> {
-    Ok(read_lines("data/d05.txt")?.filter(|l| is_nice1(l)).count())
+    Ok(read_lines!("data/d05.txt")?.filter(|l| is_nice1(l)).count())
 }
 
 pub fn part2() -> io::Result<usize> {
-    Ok(read_lines("data/d05.txt")?.filter(|l| is_nice2(l)).count())
+    Ok(read_lines!("data/d05.txt")?.filter(|l| is_nice2(l)).count())
 }
 
 pub fn main() {

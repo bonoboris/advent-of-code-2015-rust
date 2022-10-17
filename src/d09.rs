@@ -1,5 +1,6 @@
 use crate::common::{print_parts, read_lines};
 use ex::io;
+use std::io::BufRead;
 
 use itertools::Itertools;
 use std::collections::HashMap;
@@ -61,12 +62,12 @@ fn find_longest(dists: &DistMap) -> Option<u32> {
 }
 
 pub fn part1() -> io::Result<u32> {
-    let dists = build_dist_map(read_lines("data/d08.txt")?);
+    let dists = build_dist_map(read_lines!("data/d08.txt")?);
     Ok(find_shortest(&dists).unwrap_or_default())
 }
 
 pub fn part2() -> io::Result<u32> {
-    let dists = build_dist_map(read_lines("data/d08.txt")?);
+    let dists = build_dist_map(read_lines!("data/d08.txt")?);
     Ok(find_longest(&dists).unwrap_or_default())
 }
 

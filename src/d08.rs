@@ -1,5 +1,6 @@
 use crate::common::{print_parts, read_lines};
 use ex::io;
+use std::io::BufRead;
 
 fn get_diff(line: impl AsRef<str>) -> usize {
     let l = line.as_ref();
@@ -40,11 +41,11 @@ fn encode(line: impl AsRef<str>) -> String {
 }
 
 pub fn part1() -> io::Result<usize> {
-    Ok(read_lines("data/d08.txt")?.map(get_diff).sum::<usize>())
+    Ok(read_lines!("data/d08.txt")?.map(get_diff).sum::<usize>())
 }
 
 pub fn part2() -> io::Result<usize> {
-    Ok(read_lines("data/d08.txt")?
+    Ok(read_lines!("data/d08.txt")?
         .map(encode)
         .map(get_diff)
         .sum::<usize>())
@@ -61,7 +62,7 @@ mod tests {
     #[test]
     fn test_get_diff() {
         assert_eq!(
-            read_lines("data/test/d08.txt")
+            read_lines!("data/test/d08.txt")
                 .unwrap()
                 .map(get_diff)
                 .sum::<usize>(),
@@ -72,7 +73,7 @@ mod tests {
     #[test]
     fn test_encode_diff() {
         assert_eq!(
-            read_lines("data/test/d08.txt")
+            read_lines!("data/test/d08.txt")
                 .unwrap()
                 .map(encode)
                 .map(get_diff)

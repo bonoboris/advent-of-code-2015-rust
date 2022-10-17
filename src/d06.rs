@@ -1,6 +1,7 @@
 use crate::common::{print_parts, read_lines};
 use ex::io;
 use itertools::Itertools;
+use std::io::BufRead;
 
 type Point = (usize, usize);
 
@@ -75,7 +76,7 @@ fn get_total_brightness(state: &Vec<Vec<u8>>) -> usize {
 
 pub fn part1() -> io::Result<usize> {
     let mut state = vec![vec![0 as u8; 1000]; 1000];
-    read_lines("data/d06.txt")?
+    read_lines!("data/d06.txt")?
         .filter_map(|l| parse_line(&l))
         .for_each(|c| apply_command_1(&mut state, &c));
     Ok(get_total_brightness(&state))
@@ -83,7 +84,7 @@ pub fn part1() -> io::Result<usize> {
 
 pub fn part2() -> io::Result<usize> {
     let mut state = vec![vec![0 as u8; 1000]; 1000];
-    read_lines("data/d06.txt")?
+    read_lines!("data/d06.txt")?
         .filter_map(|l| parse_line(&l))
         .for_each(|c| apply_command_2(&mut state, &c));
     Ok(get_total_brightness(&state))

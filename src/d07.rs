@@ -2,6 +2,7 @@ use crate::common::{print_parts, read_lines};
 use ex::io;
 
 use std::collections::HashMap;
+use std::io::BufRead;
 use std::vec;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -138,13 +139,13 @@ fn get_wire_a(commands: &[Command]) -> u16 {
 }
 
 pub fn part1() -> io::Result<u16> {
-    let commands: Vec<Command> = Vec::from_iter(read_lines("data/d07.txt")?.map(parse_line));
+    let commands: Vec<Command> = Vec::from_iter(read_lines!("data/d07.txt")?.map(parse_line));
     Ok(get_wire_a(&commands))
 }
 
 pub fn part2() -> io::Result<u16> {
     let b_val = part1()?;
-    let mut commands: Vec<Command> = Vec::from_iter(read_lines("data/d07.txt")?.map(parse_line));
+    let mut commands: Vec<Command> = Vec::from_iter(read_lines!("data/d07.txt")?.map(parse_line));
     if let Some(assign_b_command) = commands.iter_mut().find(|cmd| match cmd.operation {
         Operation::Assign(_) => cmd.target == "b",
         _ => false,

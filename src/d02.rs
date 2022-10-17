@@ -1,5 +1,6 @@
 use crate::common::{print_parts, read_lines};
 use ex::io;
+use std::io::BufRead;
 
 fn get_wrapping_paper(dims: &[u32; 3]) -> u32 {
     let mut areas = [dims[0] * dims[1], dims[0] * dims[2], dims[1] * dims[2]];
@@ -26,14 +27,14 @@ fn parse_dims(s: &str) -> Option<[u32; 3]> {
 }
 
 pub fn part1() -> io::Result<u32> {
-    Ok(read_lines("data/d02.txt")?
+    Ok(read_lines!("data/d02.txt")?
         .filter_map(|l| parse_dims(&l))
         .map(|dims| get_wrapping_paper(&dims))
         .sum())
 }
 
 pub fn part2() -> io::Result<u32> {
-    Ok(read_lines("data/d02.txt")?
+    Ok(read_lines!("data/d02.txt")?
         .filter_map(|l| parse_dims(&l))
         .map(|dims| get_ribbon(&dims))
         .sum())

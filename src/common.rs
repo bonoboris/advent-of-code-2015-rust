@@ -1,23 +1,7 @@
 use ex::fs;
 use ex::io;
 use std::fmt::Display;
-use std::io::{BufRead, BufReader, Lines};
-use std::iter::FilterMap;
 use std::path::Path;
-
-pub struct LineIter(FilterMap<Lines<BufReader<fs::File>>, OkFn>);
-
-impl Iterator for LineIter {
-    type Item = String;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        self.0.size_hint()
-    }
-}
 
 pub fn read_to_string<P>(filename: P) -> io::Result<String>
 where
@@ -25,20 +9,17 @@ where
 {
     fs::read_to_string(filename)
 }
-
-type OkFn = fn(std::io::Result<String>) -> Option<String>;
-
-pub fn read_lines<P>(filename: P) -> io::Result<LineIter>
-where
-    P: AsRef<Path>,
-{
-    let file = fs::File::open(filename)?;
-    fn ok(ret: std::io::Result<String>) -> Option<String> {
-        ret.ok()
-    }
-    let ret = BufReader::new(file).lines().filter_map(ok as OkFn);
-    Ok(LineIter(ret))
+macro_rules! read_lines {
+    ($filepath:expr) => {
+        ::ex::fs::File::open($filepath).and_then(|file| {
+            Ok(::std::io::BufReader::new(file)
+                .lines()
+                .filter_map(|l| l.ok()))
+        })
+    };
 }
+
+pub(crate) use read_lines;
 
 pub trait StringResults {
     fn unwrap_as_string(&self) -> String;
